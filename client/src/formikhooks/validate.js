@@ -8,6 +8,13 @@ export async function usernameVaildate(values){
     return errors;
 }
 
+export async function passwordValidate(values){
+    const errors=passwordVerify({},values);
+
+    return errors;
+}
+
+{/* username validation */}
 
 function usernameVerify(error={}, values){
     if(!values.username){
@@ -19,3 +26,21 @@ function usernameVerify(error={}, values){
     }
     return error;
 }
+
+
+{/* password validation */}
+
+function passwordVerify(errors={}, values){
+    const specialch=/[~!@#$%^&*()-_+={}[\]|\\:;"'<>,.?/]/;
+    if(!values.password){
+        errors.password='password rquired!';
+    }else if(values.password.includes(" ")){
+        errors.password="can't use empty spaces";
+    }else if(values.password.length<8){
+        errors.password="password must be more than 8 charaters long";
+    }else if(!specialch.test(values.password)){
+        errors.password="password must includes special characters"
+    }
+    return errors;
+}
+

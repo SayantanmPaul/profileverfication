@@ -1,13 +1,13 @@
 import React from 'react';
 import Context from '../../public/unsplash.jpg';
 import git from '../assets/Vector.png';
-import { Toaster} from 'react-hot-toast';
-import {useFormik} from 'formik';
-import { usernameVaildate} from '../formikhooks/validate'
+import { Toaster } from 'react-hot-toast';
+import { useFormik } from 'formik';
+import { usernameVaildate } from '../formikhooks/validate';
+import { useNavigate } from 'react-router-dom';
 
 export default function Username() {
-
-  {/* formik meesage prints */}
+  const history = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -15,11 +15,16 @@ export default function Username() {
     },
     validateOnBlur: false,
     validateOnChange: false,
-    validate: usernameVaildate ,
+    validate: usernameVaildate,
     onSubmit: async (values) => {
       console.log(values);
+
+      if (formik.isValid) {
+        history('/password',{state: {username:values.username}});
+      }
     },
   });
+
 
   return (
     <div className="flex h-screen bg-cover overflow-hidden">
@@ -54,15 +59,14 @@ export default function Username() {
                 ):(
                 <></>
                 )}
-                <div >
-                  <button className='bg-[#439BC0] px-[148px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}}>Let&apos;s sign in</button>
+                <div >  
+                  <button onSubmit={formik.handleSubmit} className='bg-[#439BC0] px-[128px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}} >Let&apos;s get started  </button>
                 </div>
-                <div className='flex flex-row gap-1'>
+                <div className='flex flex-row justify-center gap-1'>
                   <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-xs' >Don&apos;t have an account? </p>
                   <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-black text-xs hover:underline duration-300 cursor-pointer'>Sign up for free</p>
                 </div>
-              </div>
-             
+              </div>      
             </div>
           </form>
 
@@ -95,7 +99,7 @@ export default function Username() {
                 <div className='flex flex-col items-center gap-3'>
                   <input {...formik.getFieldProps('username')} className=' w-[310px] p-2 text-[12px] bg-[#e6e2e2] placeholder:opacity-70 rounded-sm' style={{fontFamily: 'Poppins, sans-serif'}} type="text" placeholder='Enter your username' />
                   <div >
-                    <button className='bg-[#439BC0] px-[115px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Let&apos;s sign in</button>
+                    <button onSubmit={usernameVaildate} className='bg-[#439BC0] px-[100px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Let&apos;s get started </button>
                   </div>
                   <div className='flex flex-row gap-1'>
                     <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-[9px]' >Don&apos;t have an account? </p>
