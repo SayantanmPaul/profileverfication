@@ -56,7 +56,7 @@ export default function password() {
                   </div>
                 </div>
               </div>
-              <div className='flex flex-col items-center gap-3'>
+              <div className='flex flex-col gap-3'>
                 <input {...formik.getFieldProps('password')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''}  w-96 p-2 text-[14px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type='password' placeholder='Enter your password' />
                 {formik.errors.password && formik.touched.password?(
                   <span style={{ fontFamily: 'Poppins, sans-serif' }} className="text-xs px-2 text-red-500">
@@ -104,7 +104,7 @@ export default function password() {
                     </div>
                   </div>
                 </div>
-                <div className='flex flex-col items-center gap-3'>
+                <div className='flex flex-col gap-3'>
                   <input {...formik.getFieldProps('password')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''} w-[310px] p-2 text-[12px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type="password" placeholder='Enter your password' />
                   {formik.errors.password && formik.touched.password?(
                   <span style={{ fontFamily: 'Poppins, sans-serif' }} className="text-xs px-2 text-red-500">
