@@ -25,6 +25,13 @@ export async function resetpsdValidation(values) {
     return errors;
 }
 
+
+// profile page validation
+export async function profileValidate(values){
+    const errors=emailVerify({}, values);
+    return errors;
+}
+
 // registration page validation
 export async function registerValidate(values){
     const errors=usernameVerify({}, values);
@@ -52,7 +59,7 @@ function emailVerify(error={}, values){
         error.email= 'email required!';
     }else if(values.email.includes(" ")){
         error.email= 'email can&apos;t be empty!';
-    } else if(/[~!@#$%^&*()-_+={}[\]|\\:;"'<>,.?/]/.test(values.email)){
+    } else if(/[~!#$%^&*()-_+={}[\]|\\:;"'<>,?/]/.test(values.email)){
         error.email='invalid email address!'
     }
 
@@ -62,7 +69,7 @@ function emailVerify(error={}, values){
 {/* password validation */}
 
 function passwordVerify(errors={}, values){
-    const specialch=/[~!@#$%^&*()-_+={}[\]|\\:;"'<>,.?/]/;
+    const specialch=/[~!#$%^&*()-_+={}[\]|\\:;"'<>,?/]/;
     if(!values.password){
         errors.password='password rquired!';
     }else if(values.password.includes(" ")){
