@@ -7,6 +7,7 @@ export async function usernameVaildate(values){
 
     return errors;
 }
+// password validation
 
 export async function passwordValidate(values){
     const errors=passwordVerify({},values);
@@ -24,6 +25,15 @@ export async function resetpsdValidation(values) {
     return errors;
 }
 
+// registration page validation
+export async function registerValidate(values){
+    const errors=usernameVerify({}, values);
+    passwordVerify(errors, values);
+    emailVerify(errors, values);
+
+    return errors;
+}   
+
 {/* username validation */}
 
 function usernameVerify(error={}, values){
@@ -35,6 +45,19 @@ function usernameVerify(error={}, values){
     return error;
 }
 
+// email validationa
+
+function emailVerify(error={}, values){
+    if(!values.email){
+        error.email= 'email required!';
+    }else if(values.email.includes(" ")){
+        error.email= 'email can&apos;t be empty!';
+    } else if(/[~!@#$%^&*()-_+={}[\]|\\:;"'<>,.?/]/.test(values.email)){
+        error.email='invalid email address!'
+    }
+
+    return error;
+}
 
 {/* password validation */}
 
