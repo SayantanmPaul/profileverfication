@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { usernameVaildate } from '../formikhooks/validate';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Username() {
   const history = useNavigate();
@@ -32,9 +33,6 @@ export default function Username() {
         <div className=" lg:block hidden" style={{ width: '60%' }}>
           <div className='flex flex-row items-center absolute gap-2 p-10 cursor-pointer'>
             <img src={git} alt="branch" className='w-8' />
-            <div>
-              <h1 style={{fontFamily: 'Barlow Condensed, sans-serif'}} className=' text-4xl font-semibold text-[#B799FF] '>Project UX..</h1>
-            </div>
           </div>
 
           <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
@@ -64,7 +62,9 @@ export default function Username() {
                 </div>
                 <div className='flex flex-row justify-center gap-1'>
                   <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-xs' >Don&apos;t have an account? </p>
-                  <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-black text-xs hover:underline duration-300 cursor-pointer'>Sign up for free</p>
+                  <Link to='/register'>
+                    <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-black text-xs hover:underline duration-300 cursor-pointer'>Sign up for free</p>
+                  </Link>
                 </div>
               </div>      
             </div>
@@ -103,7 +103,9 @@ export default function Username() {
                   </div>
                   <div className='flex flex-row gap-1'>
                     <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-[9px]' >Don&apos;t have an account? </p>
-                    <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-black text-[9px] hover:underline duration-300 cursor-pointer'>Sign up for free</p>
+                    <Link to='/register'>
+                      <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-black text-[9px] hover:underline duration-300 cursor-pointer'>Sign up for free</p>
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -38,9 +38,6 @@ export default function password() {
         <div className=" lg:block hidden" style={{ width: '60%' }}>
           <div className='flex flex-row items-center absolute gap-2 p-10 cursor-pointer'>
             <img src={git} alt="branch" className='w-8' />
-            <div>
-              <h1 style={{fontFamily: 'Barlow Condensed, sans-serif'}} className=' text-4xl font-semibold text-[#B799FF] '>Project UX..</h1>
-            </div>
           </div>
 
           <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
