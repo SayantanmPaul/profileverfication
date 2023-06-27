@@ -3,7 +3,7 @@
   import git from '../assets/Vector.png';
   import {Toaster} from 'react-hot-toast';
   import {useFormik} from 'formik';
-  import { passwordValidate} from '../formikhooks/validate';
+  import { registerValidate} from '../formikhooks/validate';
   import { Link} from 'react-router-dom';
   import convertToBase64 from '../formikhooks/img_convert';
 
@@ -15,17 +15,16 @@
       const base64 = await convertToBase64(e.target.files[0]);
       setFile(base64);
     };
-    
 
     // {/* formik meesage prints */}
 
     const formik = useFormik({
       initialValues: {
-        email:'demo@gmail.com',
-        username: 'admin123',
-        password: 'password123',  
+        email:'',
+        username: '',
+        password: '',  
       },
-      validate: passwordValidate ,
+      validate: registerValidate ,
 
       validateOnBlur: false,
       validateOnChange: false,
@@ -34,8 +33,6 @@
         console.log(values);
       },
     })
-
-    
 
     return (
       <div className="flex h-screen bg-cover overflow-hidden">
@@ -55,7 +52,7 @@
                   <div className=' rounded-full border-2 border-[#439BC0] p-1 '>
                     <div className=' w-32 h-32 rounded-full overflow-hidden ' >
                       <label htmlFor='profile'>
-                        <img className=' object-cover object-center bg-cover overflow-hidden bg-repeat ' src={file ||Context } alt="user image"  />
+                        <img className=' object-cover object-center bg-cover overflow-hidden bg-rea ' src={file ||Context } alt="user image"  />
                         <input onChange={onUpload} type='file' id='profile' name='profile ' className=' hidden' />
                       </label>
                     </div>
@@ -63,7 +60,21 @@
                 </div>
                 <div className='flex flex-col gap-3'>
                   <input {...formik.getFieldProps('email')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''}  w-96 p-2 text-[14px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type='email' placeholder='Enter your email*' />
+                  {formik.errors.email && formik.touched.email?(
+                    <span style={{ fontFamily: 'Poppins, sans-serif' }} className="text-xs px-2 text-red-500">
+                      {formik.errors.email}
+                    </span>
+                    ):(
+                    <></>
+                    )}
                   <input {...formik.getFieldProps('username')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''}  w-96 p-2 text-[14px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type='text' placeholder='Choose your username*' />
+                  {formik.errors.username && formik.touched.username?(
+                    <span style={{ fontFamily: 'Poppins, sans-serif' }} className="text-xs px-2 text-red-500">
+                      {formik.errors.username}
+                    </span>
+                    ):(
+                    <></>
+                    )}
                   <input {...formik.getFieldProps('password')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''}  w-96 p-2 text-[14px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type='password' placeholder='Enter your password*' />
                   {formik.errors.password && formik.touched.password?(
                     <span style={{ fontFamily: 'Poppins, sans-serif' }} className="text-xs px-2 text-red-500">
@@ -73,7 +84,7 @@
                   <></>
                   )}
                   <div >  
-                    <button onSubmit={passwordValidate} className='bg-[#439BC0] px-[140px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}}>Register now</button>
+                    <button onSubmit={registerValidate} className='bg-[#439BC0] px-[140px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}}>Register now</button>
                   </div>
                   <div className='flex flex-row justify-center gap-1'>
                     <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-xs' >Already have an account?</p>
@@ -114,12 +125,26 @@
                       </div>
                     </div>
                   </div>
-                  <div className='flex flex-col gap-3'>
+                  <div className='flex flex-col gap-2'>
                   <input {...formik.getFieldProps('email')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''} w-[310px] p-2 text-[12px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type="email" placeholder='Enter your email*' />
-                  <input {...formik.getFieldProps('username')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''} w-[310px] p-2 text-[12px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type="text" placeholder='Choose your useranme*' />
+                  {formik.errors.email && formik.touched.email?(
+                    <span style={{ fontFamily: 'Poppins, sans-serif' }} className="text-xs px-1 text-red-500">
+                      {formik.errors.email}
+                    </span>
+                    ):(
+                    <></>
+                    )}
+                    <input {...formik.getFieldProps('username')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''} w-[310px] p-2 text-[12px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type="text" placeholder='Choose your useranme*' />
+                    {formik.errors.username && formik.touched.username?(
+                    <span style={{ fontFamily: 'Poppins, sans-serif' }} className="text-xs px-1 text-red-500">
+                      {formik.errors.username}
+                    </span>
+                    ):(
+                    <></>
+                    )}
                     <input {...formik.getFieldProps('password')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''} w-[310px] p-2 text-[12px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type="password" placeholder='Enter your password*' />
                     {formik.errors.password && formik.touched.password?(
-                    <span style={{ fontFamily: 'Poppins, sans-serif' }} className="text-xs px-2 text-red-500">
+                    <span style={{ fontFamily: 'Poppins, sans-serif' }} className="text-xs px-1 text-red-500">
                       {formik.errors.password}
                     </span>
                     ):(
