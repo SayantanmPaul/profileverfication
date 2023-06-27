@@ -3,7 +3,7 @@ import Context from '/unsplash.jpg';
 import git from '../assets/Vector.png';
 import {Toaster} from 'react-hot-toast';
 import {useFormik} from 'formik';
-import { registerValidate} from '../formikhooks/validate';
+import { profileValidate} from '../formikhooks/validate';
 import { Link} from 'react-router-dom';
 import convertToBase64 from '../formikhooks/img_convert';
 
@@ -15,7 +15,6 @@ export default function profile() {
     const base64 = await convertToBase64(e.target.files[0]);
     setFile(base64);
   };
-
   // {/* formik meesage prints */}
 
   const formik = useFormik({
@@ -25,7 +24,7 @@ export default function profile() {
       email:'',
       githubid:'',
     },
-    validate: registerValidate ,
+    validate: profileValidate ,
 
     validateOnBlur: false,
     validateOnChange: false,
@@ -64,17 +63,10 @@ export default function profile() {
                   <input {...formik.getFieldProps('firstName')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''}  w-44 p-2 text-[14px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type='text' placeholder='First Name' />
                   <input {...formik.getFieldProps('lastName')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''}  w-44 p-2 text-[14px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type='text' placeholder='Last Name' />
                 </div>
-                <input {...formik.getFieldProps('email')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''}  w-96 p-2 text-[14px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type='email' placeholder='Enter your email*' />
-                {formik.errors.email && formik.touched.email?(
-                  <span style={{ fontFamily: 'Poppins, sans-serif' }} className="text-xs px-2 text-red-500">
-                    {formik.errors.email}
-                  </span>
-                  ):(
-                  <></>
-                  )}
+                <input {...formik.getFieldProps('email')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''}  w-96 p-2 text-[14px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type='email' placeholder='Change email' />
                 <input {...formik.getFieldProps('githubid')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''}  w-96 p-2 text-[14px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type='text' placeholder='Github ID' />
                 <div >  
-                  <button onSubmit={registerValidate} className='bg-rose-500 px-[140px] py-1 text-white font-medium rounded-sm hover:bg-rose-700 duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}}>Update now</button>
+                  <button onSubmit={profileValidate} type='submit' className='bg-rose-500 px-[140px] py-1 text-white font-medium rounded-sm hover:bg-rose-700 duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}}>Update now</button>
                 </div>
                 <div className='flex flex-row justify-center gap-1'>
                   <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-xs' >See you again! </p>
@@ -120,11 +112,10 @@ export default function profile() {
                 <input {...formik.getFieldProps('firstName')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''} w-36 p-2 text-[12px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type="text" placeholder='First Name' />
                 <input {...formik.getFieldProps('lastName')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''} w-36 p-2 text-[12px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type="text" placeholder='Last Name' />
                 </div>
-                <input {...formik.getFieldProps('email')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''} w-[310px] p-2 text-[12px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type="email" placeholder='Enter your email*' />
+                <input {...formik.getFieldProps('email')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''} w-[310px] p-2 text-[12px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type="email" placeholder='Change email' />
                 <input {...formik.getFieldProps('githubid')} className={`${formik.errors.password && formik.touched.password ? 'border-rose-500' : ''} w-[310px] p-2 text-[12px] border bg-[#e6e2e2] placeholder:opacity-70 rounded-sm`} style={{fontFamily: 'Poppins, sans-serif'}} type="text" placeholder='Github ID' />
-                  
                   <div >
-                    <button onSubmit={formik.handleSubmit} className='bg-rose-500 px-[110px] py-1 text-white font-medium rounded-sm hover:bg-rose-700 duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Update Now</button>
+                    <button onSubmit={formik.handleSubmit} type='submit' className='bg-rose-500 px-[110px] py-1 text-white font-medium rounded-sm hover:bg-rose-700 duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Update Now</button>
                   </div>
                   <div className='flex flex-row gap-1 justify-center'>
                     <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-[9px]' >See you again! </p>
