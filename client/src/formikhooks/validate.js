@@ -14,14 +14,22 @@ export async function passwordValidate(values){
     return errors;
 }
 
+{/* reset password validation */}
+
+export async function resetpsdValidation(values) {
+    const errors = passwordVerify({}, values);
+    if (values.password !== values.repeat_pwd) {
+      errors.match = "Passwords don't match";
+    }
+    return errors;
+}
+
 {/* username validation */}
 
 function usernameVerify(error={}, values){
     if(!values.username){
-        error.username= toast.error('username requireed');
         error.username='username required';
     }else if(values.username.includes(" ")){
-        error.username=toast.error('invalid username!')
         error.username='no blank spaces';
     }
     return error;
@@ -43,4 +51,5 @@ function passwordVerify(errors={}, values){
     }
     return errors;
 }
+
 

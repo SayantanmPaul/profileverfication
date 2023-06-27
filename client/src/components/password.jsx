@@ -118,7 +118,7 @@ export default function password() {
                   </div>
                   <div className='flex flex-row gap-1'>
                     <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-[9px]' >Forgot Password? </p>
-                    <Link to='/rcoverpassword'>
+                    <Link to='/recoverpassword'>
                       <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-rose-600 text-[9px] hover:underline duration-300 cursor-pointer'>recover now</p>
                     </Link>
                   </div>
