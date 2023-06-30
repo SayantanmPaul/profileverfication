@@ -100,7 +100,7 @@ export async function login(req, res) {
   } catch (err) {
     return res.status(500).send({ error: "an error occurred" });
   }
-}
+}   
 
 
 // GET: http://localhost:8080/api/user/username
@@ -132,7 +132,28 @@ export async function getUser(req, res){
 
 // PUT: http://localhost:8080/api/updateuser
 export async function updateUser(req, res){
-    res.json('updateUser route');
+    try {
+        
+        const id= req.query.id;
+
+        if(id) {
+            const body= req.body;
+
+            // update the user with the id body
+            userModel.updateOne({_id: id}, body)
+            .then(()=>{
+                return res.status(200).send({message:"record has been updated"})
+            })
+            .catch(err=>{
+                return res.status(500).send({error: err.message})
+            })
+        }
+        
+        else res.status(401).send({error: "user not found"});
+
+    } catch (error) {
+        return res.status(401).send({error})
+    }
 }
 
 // GET: http://localhost:8080/api/generateOTP
