@@ -48,7 +48,7 @@ export async function register(req, res){
                 })
             }
         }catch(error){
-            return res.status(500).send({error: "having error"});
+            return res.status(500).send({error: "try new email or username"});
         }
         
     }catch(error){
@@ -134,13 +134,14 @@ export async function getUser(req, res){
 export async function updateUser(req, res){
     try {
         
-        const id= req.query.id;
+        // const id= req.query.id;
+        const {userID}= req.user;
 
-        if(id) {
+        if(userID) {
             const body= req.body;
 
             // update the user with the id body
-            userModel.updateOne({_id: id}, body)
+            userModel.updateOne({_id: userID}, body)
             .then(()=>{
                 return res.status(200).send({message:"record has been updated"})
             })
@@ -152,7 +153,7 @@ export async function updateUser(req, res){
         else res.status(401).send({error: "user not found"});
 
     } catch (error) {
-        return res.status(401).send({error})
+        return res.status(401).send({error: error.message})
     }
 }
 

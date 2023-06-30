@@ -1,5 +1,6 @@
 import { Router, application } from "express";
 import * as controller from '../controller/appController.js'
+import Auth from '../middlewire/authentication.js';
 
 const router= Router();
 
@@ -26,7 +27,7 @@ router.route('/login').post(controller.verifyUser, controller.login)
 // put method
 
 // update user profile
-router.route('/updateUser').put(controller.updateUser)
+router.route('/updateUser').put(Auth, controller.updateUser)
 // reset password
 router.route('/resetPassword').put(controller.resetPassword)
 
