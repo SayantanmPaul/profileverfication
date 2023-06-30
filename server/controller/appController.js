@@ -105,7 +105,29 @@ export async function login(req, res) {
 
 // GET: http://localhost:8080/api/user/username
 export async function getUser(req, res){
-    res.json('getUser route');
+
+    const { username}= req.params;
+
+    if(!username){
+        res.status(400).send({error: "invalid username"})
+    }
+
+    try {
+        // find the user of the username
+        const user= await userModel.findOne({username});
+
+        if(!user) return res.status(501).send({error:"can't find the user"})
+
+        // excludeing the password feild
+        const {password, ...rest }= user.toObject();
+
+    
+        return res.status(200).send(rest);
+
+    } catch (error) {
+        return res.status(404).send({error: "can't find the user data", details: error.message})
+    }
+
 }
 
 // PUT: http://localhost:8080/api/updateuser
