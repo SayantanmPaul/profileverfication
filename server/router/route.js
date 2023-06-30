@@ -21,7 +21,7 @@ router.route('/registerMail').post()
 // authenticate user
 router.route('/auth').post((req,res)=>res.end())
 // login to the application
-router.route('/login').post(controller.login)
+router.route('/login').post(controller.verifyUser, controller.login)
 
 // put method
 

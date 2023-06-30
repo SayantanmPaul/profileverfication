@@ -1,5 +1,23 @@
 import userModel from "../model/user.model.js";
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import ENV from '../config.js';
+
+// middleware for veryfy user
+export async function verifyUser(req,res, next){
+    try{
+        const {username}= req.method== 'GET'? req.query: req.body;
+
+        // check user existance
+        const exist= await userModel.findOne({username});
+        if(!exist) return res.status(404).send({error: "can't find user"})
+        next();
+
+    }catch(error){
+        return res.status(404).send({error: "authentication error"});
+    }
+}   
+
 
 // POST: http://localhost:8080/api/register
 export async function register(req, res){
@@ -39,9 +57,51 @@ export async function register(req, res){
 }
 
 // POST: http://localhost:8080/api/login
-export async function login(req, res){
-    res.json('login route');
+export async function login(req, res) {
+  const { username, password } = req.body;
+
+  try {
+    userModel.findOne({ username })
+      .then(user => {
+        if (!user) {
+          return res.status(404).send({ error: "Username not found" });
+        }
+        bcrypt.compare(password, user.password)
+          .then(passwordCheck => {
+            if (!passwordCheck) {
+              return res.status(400).send({ error: "doesn't have the password" });
+            }
+            // JWT token
+            const token = jwt.sign(
+              {
+                userID: user._id,
+                username: user.username,
+              },
+
+            //   token from config.js
+              ENV.JWT_SECRET,
+              { expiresIn: '24h' }
+            );
+
+            return res.status(200).send({
+              msg: "Login successful",
+              username: user.username,
+              token
+            });
+          })
+          .catch(error => {
+            return res.status(401).send({ error: "password didn't matched", details: error.message });
+          });
+      })
+      .catch(error => {
+        return res.status(404).send({ error: "Username not found" });
+      });
+
+  } catch (err) {
+    return res.status(500).send({ error: "an error occurred" });
+  }
 }
+
 
 // GET: http://localhost:8080/api/user/username
 export async function getUser(req, res){
