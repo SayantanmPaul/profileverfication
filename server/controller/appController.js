@@ -1,8 +1,41 @@
-
+import userModel from "../model/user.model.js";
+import bcrypt from 'bcrypt';
 
 // POST: http://localhost:8080/api/register
 export async function register(req, res){
-    res.json('register route');
+    try{
+        const { email, username, profile, password }= req.body;
+
+        // check the existing user
+        const userExist=userModel.findOne({username}).exec();
+
+        // check for existing email
+        const emailExist= userModel.findOne({email}).exec();
+
+        try{
+            // uniqie user and email check
+            await Promise.all([userExist, emailExist])
+            if(password){
+                const hashPassword= await bcrypt.hash(password, 10)
+                const newUser= new userModel({
+                    username,
+                    password: hashPassword,
+                    profile: profile || '',
+                    email: email
+                })
+                const result=await newUser.save();
+    
+                return res.status(201).send({
+                    message:' user registerd successfully!'
+                })
+            }
+        }catch(error){
+            return res.status(500).send({error: "having error"});
+        }
+        
+    }catch(error){
+        return res.status(500).send({error});
+    }
 }
 
 // POST: http://localhost:8080/api/login
