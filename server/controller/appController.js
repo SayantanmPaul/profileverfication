@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import ENV from '../config.js';
 import otpGen from 'otp-generator'
+import { redirect } from "react-router-dom";
 
 
 // middleware for veryfy user
@@ -71,7 +72,7 @@ export async function login(req, res) {
         bcrypt.compare(password, user.password)
           .then(passwordCheck => {
             if (!passwordCheck) {
-              return res.status(400).send({ error: "doesn't have the password" });
+              return res.status(400).send({ error: "password didn't matched" });
             }
             // JWT token
             const token = jwt.sign(
@@ -92,7 +93,7 @@ export async function login(req, res) {
             });
           })
           .catch(error => {
-            return res.status(401).send({ error: "password didn't matched", details: error.message });
+            return res.status(401).send({ details: error.message });
           });
       })
       .catch(error => {
@@ -184,16 +185,49 @@ export async function verifyOTP(req, res){
 }
 
 
-
-
 // redirect user when the otp is valid 
 // GET: http://localhost:8080/api/resetSession
 export async function resetSession(req, res){
-    res.json('resetSession route');
+    if(req.app.locals.resetSession){
+      req.app.locals.resetSession= false;
+      return res.status(201).send({message: "access validated"})
+    }
+    return res.status(400).send({error: "session expired!"})
 }
 
 //update password when a valid session
 // PUT: http://localhost:8080/api/resetPassword
 export async function resetPassword(req, res){
-    res.json('resetPassword route');
+    try {
+
+      // if the otp is verified then it will redirect here
+      if(!req.app.locals.resetSession) return res.status(400).send({error: "session expired!"});
+
+      const { username, password}= req.body;
+
+      try {
+        const user= await userModel.findOne({username});
+
+        if(!user) return res.status(404).send({error: "username not found"})
+
+        // hash new password
+        const hashedPassword=await bcrypt.hash(password, 10);
+
+        // update the user's password
+        await userModel.updateOne(
+          {username: user.username},
+          {password: hashedPassword}
+        )
+        // reset the session to false after change password
+        req.app.locals.resetSession= false;
+
+        return res.status(201).send({message: "record has been updated"})
+
+      } catch(error){
+        return res.status(500).send({error: error.message})
+      }
+
+    } catch (error) {
+      return res.status(401).send({error: error.message})
+    }
 }

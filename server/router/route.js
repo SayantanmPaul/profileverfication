@@ -30,7 +30,7 @@ router.route('/login').post(controller.verifyUser, controller.login)
 // update user profile
 router.route('/updateUser').put(Auth, controller.updateUser)
 // reset password
-router.route('/resetPassword').put(controller.resetPassword)
+router.route('/resetPassword').put(controller.verifyUser, controller.resetPassword)
 
 
 export default router;
