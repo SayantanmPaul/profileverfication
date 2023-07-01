@@ -16,12 +16,18 @@ export default async function Auth(req, res, next){
 
         // res.json(decodeToken);
 
-
-        
         next();
-
-
     } catch (error) {
         res.status(401).json({error:"authentication failed! "})       
     }
 }
+
+export function localVariable(req, res, next){
+    req.app.locals= {
+        OTP: null,
+        resetSession: false
+    }
+    next();
+}
+
+
