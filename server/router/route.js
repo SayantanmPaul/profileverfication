@@ -1,6 +1,7 @@
 import { Router, application } from "express";
 import * as controller from '../controller/appController.js'
 import Auth, {localVariable} from '../middlewire/authentication.js';
+import registerMail  from "../controller/nodemailer.js";
 
 const router= Router();
 
@@ -19,7 +20,7 @@ router.route('/resetSession').get(controller.resetSession)
 
 router.route('/register').post(controller.register) 
 // send mail request
-router.route('/registerMail').post()
+router.route('/registerMail').post(registerMail)
 // authenticate user
 router.route('/auth').post((req,res)=>res.end())
 // login to the application
