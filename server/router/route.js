@@ -1,6 +1,6 @@
 import { Router, application } from "express";
 import * as controller from '../controller/appController.js'
-import Auth from '../middlewire/authentication.js';
+import Auth, {localVariable} from '../middlewire/authentication.js';
 
 const router= Router();
 
@@ -8,9 +8,10 @@ const router= Router();
 
 router.route('/user/:username').get(controller.getUser)
 // generate otp
-router.route('/generateOTP').get(controller.generateOTP)
+// after verifying user it will go to localVariable and generate otp
+router.route('/generateOTP').get(controller.verifyUser, localVariable, controller.generateOTP)
 // verify the generated otp
-router.route('/verify OTP').get(controller.verifyOTP)
+router.route('/verifyOTP').get(controller.verifyOTP)
 // reset session
 router.route('/resetSession').get(controller.resetSession)
 

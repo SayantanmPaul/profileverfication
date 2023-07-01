@@ -2,6 +2,8 @@ import userModel from "../model/user.model.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import ENV from '../config.js';
+import otpGen from 'otp-generator'
+
 
 // middleware for veryfy user
 export async function verifyUser(req,res, next){
@@ -159,13 +161,30 @@ export async function updateUser(req, res){
 
 // GET: http://localhost:8080/api/generateOTP
 export async function generateOTP(req, res){
-    res.json('generateOTP route');
+    req.app.locals.OTP= await otpGen.generate(6, {lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false})
+    res.status(201).send({code: req.app.locals.OTP})
 }
 
 // GET: http://localhost:8080/api/verifyOTP
 export async function verifyOTP(req, res){
-    res.json('verifyOTP route');
+    
+  const { code }=req.query;
+  if(parseInt(req.app.locals.OTP)=== parseInt(code)){
+
+    // reset otp val
+    req.app.locals.OTP= null;
+
+    // resetpassword session starts when otp is valid
+    req.app.locals.resetSession= true
+
+    return res.status(201).send({message: "verify user successful!"})
+  }
+
+  return res.status(400).send({error: "invalid otp"})
 }
+
+
+
 
 // redirect user when the otp is valid 
 // GET: http://localhost:8080/api/resetSession
