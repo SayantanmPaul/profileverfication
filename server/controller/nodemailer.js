@@ -17,7 +17,7 @@ export default function registerMail(req, res){
 
 //   mailgen format with mail description
   var mailgenerator = new Mailgen({
-    theme: "salted",
+    theme: "default",
     product: {
       name: "Password Protection App",
       link: "https://mailgen.js/"
