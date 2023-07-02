@@ -6,20 +6,28 @@ import { useFormik } from 'formik';
 import { usernameVaildate } from '../formikhooks/validate';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useAuthStore} from '../store/store.js';
+import { useEffect } from 'react';
+
 
 export default function Username() {
+
+  // update user value to the store
+  const setUsername= useAuthStore(state=>state.setUsername);
+  
   const history = useNavigate();
 
   const formik = useFormik({
     initialValues: {
-      username: '',
+      username: 'admin123',
     },
     validateOnBlur: false,
     validateOnChange: false,
     validate: usernameVaildate,
     onSubmit: async (values) => {
-      console.log(values);
 
+      setUsername(values.username)
+      //  navigate to password comp
       if (formik.isValid) {
         history('/password',{state: {username:values.username}});
       }
@@ -58,7 +66,7 @@ export default function Username() {
                 <></>
                 )}
                 <div >  
-                  <button onSubmit={formik.handleSubmit} className='bg-[#439BC0] px-[128px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}} >Let&apos;s get started  </button>
+                  <button type='submit' onSubmit={formik.handleSubmit} className='bg-[#439BC0] px-[128px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}} >Let&apos;s get started  </button>
                 </div>
                 <div className='flex flex-row justify-center gap-1'>
                   <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-xs' >Don&apos;t have an account? </p>
@@ -96,10 +104,17 @@ export default function Username() {
                     </div>
                   </div>
                 </div>
-                <div className='flex flex-col items-center gap-3'>
+                <div className='flex flex-col gap-3'>
                   <input {...formik.getFieldProps('username')} className=' w-[310px] p-2 text-[12px] bg-[#e6e2e2] placeholder:opacity-70 rounded-sm' style={{fontFamily: 'Poppins, sans-serif'}} type="text" placeholder='Enter your username' />
+                  {formik.errors.username && formik.touched.username?(
+                  <span style={{ fontFamily: 'Poppins, sans-serif' }} className="text-xs px-2 text-red-500">
+                    {formik.errors.username}
+                  </span>
+                ):(
+                <></>
+                )}
                   <div >
-                    <button onSubmit={usernameVaildate} className='bg-[#439BC0] px-[100px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Let&apos;s get started </button>
+                    <button type='submit' onSubmit={usernameVaildate} className='bg-[#439BC0] px-[100px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Let&apos;s get started </button>
                   </div>
                   <div className='flex flex-row gap-1'>
                     <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-[9px]' >Don&apos;t have an account? </p>
