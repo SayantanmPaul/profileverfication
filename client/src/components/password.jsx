@@ -36,9 +36,7 @@ export default function password() {
         formik.setFieldError('password', "password didn't matched");
       }
       loginPromise.then(res=>{
-
-        const {data}= res;
-        const {token}= data; 
+        const {token}= res.data; 
         localStorage.setItem('token', token)
         navigate('/profile')
       })

@@ -50,7 +50,8 @@ export async function registerUser(credentials){
 export async function verifyPassword({username, password}){
     try {
         if(username){
-            const data= await axios.post('/api/login',{username, password})
+            const response= await axios.post('/api/login',{username, password})
+            const {data}=response;
             return Promise.resolve({data});
         }        
     } catch (error) {
@@ -63,7 +64,7 @@ export async function verifyPassword({username, password}){
 
 export async function updateUser(response){
     try {
-        const token= await localStorage.getItem('token');
+        const token= localStorage.getItem('token');
         const data= await axios.put('/api/updateUser', response, {headers: {"Authorization": `Bearer ${token}`}})
         return Promise.resolve({data})
 
