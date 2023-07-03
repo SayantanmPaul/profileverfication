@@ -22,7 +22,9 @@ export default function useFetch(query){
                     setData(prev=>({ ...prev, isLoading: false}));
                     setData(prev=>({ ...prev, apiData: data, status: status}))
                 }
+                
                 setData(prev=>({ ...prev, isLoading: false}))
+                
             } catch (error) {
                 setData(prev=>({ ...prev, isLoading: false, serverErr: error}))
             }

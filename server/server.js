@@ -1,13 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import bodyParser from 'body-parser';
 
 import connect from './database/connection.js';
 import router from './router/route.js';
 
 const app= express();
 
-app.use(express.json())
+app.use(bodyParser.json({limit: '10mb'}))
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 app.use(cors())
 app.use(morgan('tiny'))
 // block unauthorized stack

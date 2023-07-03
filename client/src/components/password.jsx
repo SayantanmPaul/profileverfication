@@ -4,12 +4,17 @@ import git from '../assets/Vector.png';
 import {Toaster} from 'react-hot-toast';
 import {useFormik} from 'formik';
 import { passwordValidate} from '../formikhooks/validate';
-import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
+import useFetch from '../customhooks/fetch.hook';
+import { useAuthStore } from '../store/store';
+import {LineWave} from 'react-loader-spinner'
 
 export default function password() {
-  const location=useLocation();
-  const navigate=useNavigate();
-  const {username}=location.state;
+
+  const { username } = useAuthStore(state => state.auth);
+  const [{ isLoading, apiData, serverErr }] = useFetch(`user/${username}`);
+  
+  
 
   {/* formik meesage prints */}
   
@@ -22,15 +27,11 @@ export default function password() {
     validate: passwordValidate ,
     onSubmit: async (values) => {
       console.log(values);
-
-      {/*user shouldn't able to go o password comp if formik condition dosn't meets */}
-
-      if(formik.isValid){
-        navigate('/profile');
-      }else[
-      ]
     },
   });
+
+  if(isLoading) return <div className=' flex h-screen items-center justify-center'> <LineWave height="100" width="100" color="#4fa94d" ariaLabel="line-wave" wrapperStyle={{}} wrapperClass="" visible={true} firstLineColor="" middleLineColor="" lastLineColor="" /></div>
+  if(serverErr) return <h1 style={{fontFamily:'Poppins, sans-serif'}} className='flex h-screen items-center justify-center text-xl text-rose-700'>{serverErr.message}</h1>
 
   return (
     <div className="flex h-screen bg-cover overflow-hidden">
@@ -43,13 +44,13 @@ export default function password() {
           <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
             <div className=' flex flex-col gap-12 '>
               <div className=' flex  flex-col gap-2'>
-                <h1 className=' text-[27px] font-medium text-center' style={{fontFamily: 'Poppins, sans-serif'}}>Welcome back, {username}</h1>
+                <h1 className=' text-[27px] font-medium text-center' style={{fontFamily: 'Poppins, sans-serif'}}>Welcome back, {apiData?.firstName || apiData?.username} </h1>
                 <p className=' text-xs font-medium text-center  text-[#96B7C5]' style={{fontFamily: 'Poppins, sans-serif'}}>Welcome back! Please enter your details.</p>
               </div>
               <div className=' flex flex-col items-center'>
                 <div className=' rounded-full border-2 border-[#439BC0] p-1 '>
                   <div className=' w-32 h-32 rounded-full overflow-hidden ' >
-                    <img className=' object-cover object-center ' src={Context} alt="context"  />
+                    <img className=' object-cover object-center ' src={apiData?.profile || Context} alt="context"  />
                   </div>
                 </div>
               </div>
@@ -91,13 +92,13 @@ export default function password() {
             <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
               <div className=' flex flex-col gap-9 '>
                 <div className=' flex  flex-col gap-1'>
-                  <h1 className=' text-[20px] font-semibold text-center' style={{fontFamily: 'Poppins, sans-serif'}}>Welcome back, {username}</h1>
+                  <h1 className=' text-[20px] font-semibold text-center' style={{fontFamily: 'Poppins, sans-serif'}}>Welcome back, {apiData?.firstName || apiData?.username}</h1>
                   <p className=' text-[10px] font-medium text-center  text-[#96B7C5]' style={{fontFamily: 'Poppins, sans-serif'}}>Welcome back! Please enter your details.</p>
                 </div>
                 <div className=' flex flex-col items-center'>
                   <div className=' rounded-full border-2 border-[#439BC0] p-1 '>
                     <div className=' w-28 h-28 rounded-full overflow-hidden ' >
-                      <img className=' object-cover object-center ' src={Context} alt="context"  />
+                      <img className=' object-cover object-center ' src={ apiData?.profile || Context} alt="context"  />
                     </div>
                   </div>
                 </div>

@@ -20,7 +20,8 @@ export const UserSchema= new mongoose.Schema({
     
     firstname: { type: String},
     lastname: { type: String},
-    githubid: { type: String}
+    githubid: { type: String},
+    profile: { type: String}
 
 });
 
