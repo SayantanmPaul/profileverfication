@@ -19,7 +19,7 @@ export async function usernameVaildate(values){
 
 export async function passwordValidate(values){
     const errors=passwordVerify({},values);
-
+    
     return errors;
 }
 
@@ -42,34 +42,41 @@ export async function profileValidate(values){
 
 // registration page validation
 export async function registerValidate(values){
-    const errors=usernameVerify({}, values);
-    passwordVerify(errors, values);
-    emailVerify(errors, values);
+    const errors={}
+    usernameVerify(errors, values);
+    if(values.username){
+        const {status}= await authenticate(values.username);
+        if(status=== 200){
+            errors.username="user already exists"
+        }
+    }
+    passwordVerify(errors, values),
+    emailVerify(errors, values)
 
     return errors;
 }   
 
 {/* username validation */}
 
-function usernameVerify(error={}, values){
+function usernameVerify(errors={}, values){
     if(!values.username){
-        error.username='username required';
+        errors.username='username required';
     }else if(values.username.includes(" ")){
-        error.username='no blank spaces';
+        errors.username='no blank spaces';
     }
-    return error;
+    return errors;
 }
 
 // email validationa
 
-function emailVerify(error={}, values){
+function emailVerify(errors={}, values){
     if(!values.email){
-        error.email= 'email required!';
+        errors.email= 'email required!';
     }else if(values.email.includes(" ")){
-        error.email= 'email can&apos;t be empty!';
+        errors.email= 'email can&apos;t be empty!';
     }
 
-    return error;
+    return errors;
 }
 
 {/* password validation */}

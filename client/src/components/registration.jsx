@@ -1,53 +1,53 @@
 import React, { useState } from 'react'
-  import Context from '/unsplash.jpg';
-  import git from '../assets/Vector.png';
-  import {Toaster, toast} from 'react-hot-toast';
-  import {useFormik} from 'formik';
-  import { registerValidate} from '../formikhooks/validate';
-  import { Link, useNavigate} from 'react-router-dom';
-  import convertToBase64 from '../formikhooks/img_convert';
-  import { registerUser } from '../utilities/helper';
+import Context from '/unsplash.jpg';
+import git from '../assets/Vector.png';
+import {Toaster, toast} from 'react-hot-toast';
+import { useFormik } from 'formik';
+import { registerValidate, passwordValidate} from '../formikhooks/validate';
+import { Link, useNavigate} from 'react-router-dom';
+import convertToBase64 from '../formikhooks/img_convert';
+import { registerUser } from '../utilities/helper';
 
 
-  export default function registration() {
+export default function registration() {
     
-    const navigate=useNavigate();
+  const navigate=useNavigate();
 
-    const[file, setFile]= useState()
+  const[file, setFile]= useState()
 
-    const onUpload = async (e) => {
-      const base64 = await convertToBase64(e.target.files[0]);
-      setFile(base64);
-    };
+  const onUpload = async (e) => {
+    const base64 = await convertToBase64(e.target.files[0]);
+    setFile(base64);
+  };
 
-    // {/* formik meesage prints */}
+  // {/* formik meesage prints */}
 
-    const formik = useFormik({
-      initialValues: {
-        email:'',
-        username: '',
-        password: '',  
-      },
-      validate: registerValidate ,
+  const formik = useFormik({
+    initialValues: {
+      email:'',
+      username: '',
+      password: '',  
+    },
+    validate: registerValidate ,
 
-      validateOnBlur: false,
-      validateOnChange: false,
-      onSubmit: async (values) => {
-        values= await Object.assign(values, {profile: file || ''})
-        const registerSuccess= registerUser(values)
-        toast.promise(registerSuccess,{
-          loading: 'adding new user',
-          success: <b style={{fontSize: '11px'}}>you have been registered succesfully</b>,
-          error: <b style={{fontSize: '11px'}}>try again later!</b>
-        })
-        registerSuccess.then(function(){
-          navigate('/')
-        })
-      },
-    })
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: async (values) => {
+      values= await Object.assign(values, {profile: file || ''})
+      const registerSuccess= registerUser(values)
+      toast.promise(registerSuccess,{
+        loading: 'adding new user',
+        success: <b style={{fontSize: '11px'}}>you have been registered succesfully</b>,
+        error: <b style={{fontSize: '11px'}}>try again later!</b>
+      })
+      registerSuccess.then(function(){
+        navigate('/')
+      })
+    },
+  })
 
-    return (
-      <div className="flex h-screen bg-cover overflow-hidden">
+  return (
+    <div className="flex h-screen bg-cover overflow-hidden">
         <Toaster position='top-center' reverseOrder={false}/>
         <div className="w-full h-full flex ">
           <div className=" lg:block hidden" style={{ width: '60%' }}>
@@ -178,7 +178,7 @@ import React, { useState } from 'react'
           </div>
 
         </div>
-      </div>
+    </div>
 
-    )
-  }
+  )
+}

@@ -7,7 +7,6 @@ import { usernameVaildate } from '../formikhooks/validate';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useAuthStore} from '../store/store.js';
-import { useEffect } from 'react';
 
 
 export default function Username() {
@@ -19,7 +18,7 @@ export default function Username() {
 
   const formik = useFormik({
     initialValues: {
-      username: 'admin123',
+      username: '',
     },
     validateOnBlur: false,
     validateOnChange: false,
