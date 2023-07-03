@@ -1,13 +1,17 @@
-  import React, { useState } from 'react'
+import React, { useState } from 'react'
   import Context from '/unsplash.jpg';
   import git from '../assets/Vector.png';
-  import {Toaster} from 'react-hot-toast';
+  import {Toaster, toast} from 'react-hot-toast';
   import {useFormik} from 'formik';
   import { registerValidate} from '../formikhooks/validate';
-  import { Link} from 'react-router-dom';
+  import { Link, useNavigate} from 'react-router-dom';
   import convertToBase64 from '../formikhooks/img_convert';
+  import { registerUser } from '../utilities/helper';
+
 
   export default function registration() {
+    
+    const navigate=useNavigate();
 
     const[file, setFile]= useState()
 
@@ -30,12 +34,21 @@
       validateOnChange: false,
       onSubmit: async (values) => {
         values= await Object.assign(values, {profile: file || ''})
-        console.log(values);
+        const registerSuccess= registerUser(values)
+        toast.promise(registerSuccess,{
+          loading: 'adding new user',
+          success: <b style={{fontSize: '11px'}}>you have been registered succesfully</b>,
+          error: <b style={{fontSize: '11px'}}>try again later!</b>
+        })
+        registerSuccess.then(function(){
+          navigate('/')
+        })
       },
     })
 
     return (
       <div className="flex h-screen bg-cover overflow-hidden">
+        <Toaster position='top-center' reverseOrder={false}/>
         <div className="w-full h-full flex ">
           <div className=" lg:block hidden" style={{ width: '60%' }}>
             <div className='flex flex-row items-center absolute gap-2 p-10 cursor-pointer'>
@@ -84,7 +97,7 @@
                   <></>
                   )}
                   <div >  
-                    <button onSubmit={registerValidate} className='bg-[#439BC0] px-[140px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}}>Register now</button>
+                    <button type='submit' onSubmit={registerValidate} className='bg-[#439BC0] px-[140px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}}>Register now</button>
                   </div>
                   <div className='flex flex-row justify-center gap-1'>
                     <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-xs' >Already have an account?</p>
@@ -101,7 +114,6 @@
           {/* mobile and tablet view */}
           
             <div className='w-[92%] h-2/3 bg-white flex flex-col justify-center items-center lg:hidden'>
-              <Toaster position='top-center' reverseOrder={false}></Toaster>
 
               <div className='flex flex-row items-center hover:underline underline-offset-2 duration-300 p-5 absolute top-0'>
                 <img src={git} alt="branch" className='w-[12px]' />
@@ -151,7 +163,7 @@
                     <></>
                     )}
                     <div >
-                      <button onSubmit={formik.handleSubmit} className='bg-[#439BC0] px-[115px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Register now</button>
+                      <button type='submit' onSubmit={formik.handleSubmit} className='bg-[#439BC0] px-[115px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Register now</button>
                     </div>
                     <div className='flex flex-row gap-1 justify-center'>
                       <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-[9px]' >Already have an account? </p>

@@ -67,8 +67,6 @@ function emailVerify(error={}, values){
         error.email= 'email required!';
     }else if(values.email.includes(" ")){
         error.email= 'email can&apos;t be empty!';
-    } else if(/[~!#$%^&*()-_+={}[\]|\\:;"'<>,?/]/.test(values.email)){
-        error.email='invalid email address!'
     }
 
     return error;
