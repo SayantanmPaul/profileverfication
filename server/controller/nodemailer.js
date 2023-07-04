@@ -4,14 +4,14 @@ import ENV from '../config.js';
 
 export default function registerMail(req, res){
 
-  const { username, userEmail } = req.body;
+  const { username, userEmail, text, subject } = req.body;
 
 //   nodemailer transport
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: ENV.emailid,
-      pass: ENV.password
+      pass: ENV.password,
     }
   });
 
@@ -19,7 +19,7 @@ export default function registerMail(req, res){
   var mailgenerator = new Mailgen({
     theme: "default",
     product: {
-      name: "Password Protection App",
+      name: "User Authentication App",
       link: "https://mailgen.js/"
     }
   });
@@ -27,7 +27,7 @@ export default function registerMail(req, res){
   let response = {
     body: {
       name: username ,
-      intro: ['Signup successful!', 'Thank you for checking out the custom user authentication project'],
+      intro: text || ['Signup successful!', 'Thank you for checking out the custom user authentication project'],
       action: {
         button:{
             color: '#48cfad',
@@ -45,7 +45,7 @@ export default function registerMail(req, res){
   const message = {
     from: ENV.emailid,
     to: userEmail,
-    subject: 'signup successful',
+    subject: subject || 'signup successful',
     html: mail
   };
 

@@ -167,21 +167,20 @@ export async function generateOTP(req, res){
 }
 
 // GET: http://localhost:8080/api/verifyOTP
-export async function verifyOTP(req, res){
-    
-  const { code }=req.query;
-  if(parseInt(req.app.locals.OTP)=== parseInt(code)){
+export async function verifyOTP(req, res) {
+  const { code } = req.query;
 
-    // reset otp val
-    req.app.locals.OTP= null;
+  if (parseInt(req.app.locals.OTP) === parseInt(code)) {
+    // Reset OTP value
+    req.app.locals.OTP = null;
 
-    // resetpassword session starts when otp is valid
-    req.app.locals.resetSession= true
+    // Start reset password session when OTP is valid
+    req.app.locals.resetSession = true;
 
-    return res.status(201).send({message: "verify user successful!"})
+    return res.status(201).send({ message: "Verify user successful!" });
   }
 
-  return res.status(400).send({error: "invalid otp"})
+  return res.status(400).send({ error: "Invalid OTP" });
 }
 
 
