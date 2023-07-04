@@ -81,7 +81,7 @@ export default function password() {
                 <></>
                 )}
                 <div >  
-                  <button type='submit' onSubmit={passwordValidate} className='bg-[#439BC0] px-[146px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}}>Let&apos;s sign in</button>
+                  <button type='submit' onSubmit={formik.handleSubmit} className='bg-[#439BC0] px-[146px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}}>Let&apos;s sign in</button>
                 </div>
                 <div className='flex flex-row justify-center gap-1'>
                   <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-xs' >Forgot Password? </p>

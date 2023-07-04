@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { getUser } from "../utilities/helper";
+import { getUsername } from "../utilities/helper";
+
 // eslint-disable-next-line no-undef
 axios.defaults.baseURL= 'http://localhost:8080';
 
@@ -16,7 +17,7 @@ export default function useFetch(query){
                 setData(prev=>({...prev, isLoading: true}))
 
                 // registered username data 
-                const {username}= !query? await getUser() : '';
+                const {username}= !query? await getUsername() : '';
 
                 // make api request to user or to the query 
                 const {data, status}= !query

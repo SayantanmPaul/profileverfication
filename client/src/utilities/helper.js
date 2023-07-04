@@ -1,10 +1,21 @@
 import axios from 'axios';
+import jwtDecode from 'jwt-decode'
 
 
 // eslint-disable-next-line no-undef
 axios.defaults.baseURL= 'http://localhost:8080/'
 
 // make API request from backend
+
+
+// get username from token password comp
+export async function getUsername(){
+    const token=localStorage.getItem('token')
+    if(!token) return Promise.reject("can't find token")
+    const decode=jwtDecode(token)
+    return decode;
+
+}
 
 // authenticate function
 
@@ -65,7 +76,7 @@ export async function verifyPassword({username, password}){
 export async function updateUser(response){
     try {
         const token= localStorage.getItem('token');
-        const data= await axios.put('/api/updateUser', response, {headers: {"Authorization": `Bearer ${token}`}})
+        const data = await axios.put('/api/updateuser', response, { headers : { "Authorization" : `Bearer ${token}`}});
         return Promise.resolve({data})
 
     } catch (error) {

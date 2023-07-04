@@ -35,10 +35,36 @@ export async function resetpsdValidation(values) {
 
 
 // profile page validation
-export async function profileValidate(values){
-    const errors=emailVerify({}, values);
+export async function profileValidate(values) {
+    const errors = {};
+    if (!values.firstname) {
+      errors.firstname = " ";
+    } else if (values.firstname.trim() === '') {
+      errors.firstname = " ";
+    }
+    else if(!values.lastname) {
+        errors.lastname = " ";
+    } else if (values.lastname.trim() === '') {
+        errors.lastname = " ";
+    }
+    profileUsernameValidate(errors, values)
+  
+    return errors;
+  }
+  
+
+// profile page username validate
+export async function profileUsernameValidate(values){
+    const errors={}
+    if(values.username){
+        const {status}= await authenticate(values.username);
+        if(status=== 200){
+            errors.username="user already exists"
+        }
+    }
     return errors;
 }
+
 
 // registration page validation
 export async function registerValidate(values){

@@ -113,7 +113,7 @@ export default function registration() {
           <div className="flex-grow bg-cover bg-no-repeat backdrop-blur-sm flex justify-center items-center"  style={{backgroundImage: 'url(../../public/unsplash.jpg)'}}>
           {/* mobile and tablet view */}
           
-            <div className='w-[92%] h-2/3 bg-white flex flex-col justify-center items-center lg:hidden'>
+            <div className='w-[92%] h-4/5 bg-white flex flex-col justify-center items-center lg:hidden'>
 
               <div className='flex flex-row items-center hover:underline underline-offset-2 duration-300 p-5 absolute top-0'>
                 <img src={git} alt="branch" className='w-[12px]' />
