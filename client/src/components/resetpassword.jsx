@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import git from '../assets/Vector.png';
-import {Toaster} from 'react-hot-toast';
+import {Toaster, toast} from 'react-hot-toast';
 import {useFormik} from 'formik';
 import { resetpsdValidation} from '../formikhooks/validate';
-import { Link, useNavigate } from 'react-router-dom';
-
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { resetPasswordfc } from '../utilities/helper';
+import { useAuthStore } from '../store/store';
+import useFetch from '../customhooks/fetch.hook';
+import {LineWave} from 'react-loader-spinner'
 export default function resetpassword() {
 
+
   const navigate=useNavigate();
+  const [{isLoading, apiData, status, serverError}]= useFetch('resetSession')
+  const {username}= useAuthStore(state=>state.auth)
+
 
 
   {/* formik meesage prints */}
@@ -25,14 +32,20 @@ export default function resetpassword() {
     onSubmit: async (values) => {
       console.log(values);
 
-      {/*user shouldn't able to go o password comp if formik condition dosn't meets */}
+      const resetPromise= resetPasswordfc({username, password: values.password})
 
-      if(formik.isValid){
-        navigate('/');
-      }else[
-      ]
+      toast.promise(resetPromise,{
+        loading: "updateing password",
+        success: <b style={{fontSize: '11px'}} >reset successfully</b>,
+        error: <b style={{fontSize: '11px'}}>try again later</b>
+      })
+      resetPromise.then(function(){ navigate('/password')})
     },
   });
+
+  if(isLoading) return <div className=' flex h-screen items-center justify-center'> <LineWave height="100" width="100" color="#4fa94d" ariaLabel="line-wave" wrapperStyle={{}} wrapperClass="" visible={true} firstLineColor="" middleLineColor="" lastLineColor="" /></div>
+  if(serverError) return <h1 style={{fontFamily:'Poppins, sans-serif'}} className='flex h-screen items-center justify-center text-xl text-rose-700'>{serverError.message}</h1>
+  if( status && status !==201) return <Navigate to={'/password'}></Navigate>
 
   return (
     <div className="flex h-screen bg-cover overflow-hidden">
@@ -59,7 +72,7 @@ export default function resetpassword() {
                 <></>
                 )}
                 <div >  
-                  <button onSubmit={resetpsdValidation} className='bg-rose-500 px-[136px] py-1 text-white font-medium rounded-sm hover:bg-rose-700 duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}}>Confirm reset</button>
+                  <button type='submit' className='bg-rose-500 px-[136px] py-1 text-white font-medium rounded-sm hover:bg-rose-700 duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}}>Confirm reset</button>
                 </div>
               </div>      
             </div>
@@ -93,7 +106,7 @@ export default function resetpassword() {
                   <></>
                   )}
                   <div >
-                    <button onSubmit={resetpsdValidation} className='bg-rose-500 px-[106px] py-1 text-white font-medium rounded-sm hover:bg-rose-700 duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Confirm reset</button>
+                    <button type='submit' className='bg-rose-500 px-[106px] py-1 text-white font-medium rounded-sm hover:bg-rose-700 duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Confirm reset</button>
                   </div>
                   
                 </div>

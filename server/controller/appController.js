@@ -188,8 +188,7 @@ export async function verifyOTP(req, res) {
 // GET: http://localhost:8080/api/resetSession
 export async function resetSession(req, res){
     if(req.app.locals.resetSession){
-      req.app.locals.resetSession= false;
-      return res.status(201).send({message: "access validated"})
+      return res.status(201).send({flag: req.app.locals.resetSession })
     }
     return res.status(400).send({error: "session expired!"})
 }

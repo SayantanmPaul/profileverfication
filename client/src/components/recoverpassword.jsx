@@ -138,7 +138,7 @@ export default function RecoverPassword() {
                 />
                 <div>
                   <button
-                    onClick={resendOTP}
+                    type='submit'
                     className="bg-rose-400 px-[110px] py-1 text-white font-medium rounded-sm hover:bg-rose-600 duration-300 text-[14px]"
                     style={{ fontFamily: 'Poppins, sans-serif' }}
                   >
