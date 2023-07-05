@@ -15,10 +15,7 @@ export default function resetpassword() {
   const [{isLoading, apiData, status, serverError}]= useFetch('resetSession')
   const {username}= useAuthStore(state=>state.auth)
 
-
-
   {/* formik meesage prints */}
-  
   const formik = useFormik({
     initialValues: {
       password: '',
@@ -30,7 +27,6 @@ export default function resetpassword() {
     validateOnChange: false,
     
     onSubmit: async (values) => {
-      console.log(values);
 
       const resetPromise= resetPasswordfc({username, password: values.password})
 
@@ -52,7 +48,9 @@ export default function resetpassword() {
       <div className="w-full h-full flex ">
         <div className=" lg:block hidden" style={{ width: '60%' }}>
           <div className='flex flex-row items-center absolute p-11 cursor-pointer'>
-            <img src={git} alt="branch" className=' w-7' />
+            <Link to={'https://github.com/SayantanmPaul/profileverfication'}>
+              <img src={git} alt="branch" className=' w-7' />
+            </Link>
           </div>
           <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
             <div className=' flex flex-col gap-12 '>
@@ -86,7 +84,9 @@ export default function resetpassword() {
             <Toaster position='top-center' reverseOrder={false}></Toaster>
 
             <div className='flex flex-row items-center top-5 relative'>
-              <img src={git} alt="branch" className='w-5' />
+              <Link to={'https://github.com/SayantanmPaul/profileverfication'}>
+                <img src={git} alt="branch" className='w-5' />
+              </Link>
             </div>
             <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
               <div className=' flex flex-col gap-14'>
