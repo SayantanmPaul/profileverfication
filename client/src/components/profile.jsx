@@ -5,7 +5,7 @@ import useFetch from '../customhooks/fetch.hook';
 import { useFormik } from 'formik';
 import { profileValidate } from '../formikhooks/validate';
 import convertToBase64 from '../formikhooks/img_convert';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LineWave } from 'react-loader-spinner'
 import { updateUser } from '../utilities/helper';
 import { Toaster, toast } from 'react-hot-toast';
@@ -30,8 +30,12 @@ export default function profile() {
     enableReinitialize: true,
     validateOnBlur: false,
     validateOnChange: false,
+
     onSubmit: async values=>{
+      // access the profile image image or select the default one 
       values= Object.assign(values, {profile: file || apiData?.profile ||''})
+
+
       const updatSucess= updateUser(values);
       toast.promise(updatSucess,{
         loading: "updateing...",
@@ -65,7 +69,9 @@ export default function profile() {
       <div className="w-full h-full flex ">
         <div className=" lg:block hidden" style={{ width: '60%' }}>
           <div className='flex flex-row items-center absolute gap-2 p-10 cursor-pointer' >
-            <img src={git} alt="branch" className='w-8' />
+            <Link to={'https://github.com/SayantanmPaul/profileverfication'}>
+              <img src={git} alt="branch" className='w-8' />
+            </Link>
           </div>
 
           <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
@@ -134,12 +140,15 @@ export default function profile() {
                     type="text"
                     placeholder='GitHub ID' 
                     />
+                    
+                  <span style={{ fontFamily: 'Poppins, sans-serif' }}  className="text-xs px-2 text-blue-500">
+                      you can still update your github profile
+                  </span>
                   <div>  
-                    <button type='submit' className='bg-rose-500  px-[140px] py-1 text-white font-medium rounded-sm hover:bg-rose-700  duration-500 ' style={{fontFamily: 'Poppins, sans-serif'}}>update now</button>
+                    <button type='submit' className='bg-blue-500  px-[143px] py-1 text-white font-medium rounded-sm hover:bg-blue-700  duration-500 ' style={{fontFamily: 'Poppins, sans-serif'}}>update now</button>
                   </div>
                   <div className='flex flex-row justify-center gap-1'>
-                    <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-xs' >See you again! </p>
-                    <p style={{fontFamily: 'Poppins, sans-serif'}} onClick={userLogout} className='text-rose-600 text-xs hover:underline duration-300 cursor-pointer'> Log out</p>
+                    <button onClick={userLogout} type='submit' className='bg-rose-500  px-[163px] py-1 text-white font-medium rounded-sm hover:bg-rose-700  duration-500 ' style={{fontFamily: 'Poppins, sans-serif'}}>log out</button>
                   </div>
                 </div>
               </div>
@@ -149,10 +158,11 @@ export default function profile() {
         {/* mobile or tablet view */}
         <div className='w-[92%] h-[85%] bg-white flex flex-col justify-center items-center lg:hidden' >
           <div className='flex flex-row items-center hover:underline underline-offset-2 duration-300 p-5 absolute top-0'>
-            <img src={git} alt="branch" className='w-[12px]' />
-            <h1 className=' text-xs text-white opacity-60 '>/Project UX..</h1>
+            <Link to={'https://github.com/SayantanmPaul/profileverfication'}>
+              <img src={git} alt="branch" className='w-5  ' />
+            </Link>
           </div>
-          <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
+          <form onSubmit={formik.handleSubmit} className='flex justify-center items-center relative h-full'>
             <div className=' flex flex-col gap-9 '>
               <div className=' flex  flex-col gap-1'>
                 <h1 className=' text-[20px] font-semibold text-center' style={{fontFamily: 'Poppins, sans-serif'}}>Succesfully Logged in</h1>
@@ -222,13 +232,18 @@ export default function profile() {
                 </span> 
                 <button 
                   type='submit' 
-                  className='bg-rose-500 px-[110px] py-1 text-white font-medium rounded-sm hover:bg-rose-700 duration-300 text-[14px] ' 
+                  className='bg-blue-500 px-[110px] py-1 text-white font-medium rounded-sm hover:bg-blue-700 duration-300 text-[14px] ' 
                   style={{fontFamily: 'Poppins, sans-serif'}}>
                   Update Now
                 </button>
                 <div className='flex flex-row gap-1 justify-center'>
-                    <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-[9px]' >See you again! </p>
-                    <p style={{fontFamily: 'Poppins, sans-serif'}} onClick={userLogout} className='text-rose-600 text-[9px] hover:underline duration-300 cursor-pointer'>Log Out</p>
+                  <button 
+                    type='submit' 
+                    onClick={userLogout}
+                    className='bg-rose-500 px-[132px] py-1 text-white font-medium rounded-sm hover:bg-rose-700 duration-300 text-[14px] ' 
+                    style={{fontFamily: 'Poppins, sans-serif'}}>
+                    log out
+                  </button>
                 </div>
                 
               </div>

@@ -10,6 +10,7 @@ export default function RecoverPassword() {
   const { username } = useAuthStore((state) => state.auth);
   const [OTP, setOTP] = useState('');
 
+  // generate otp func
   useEffect(() => {
     generateOTP(username)
       .then((OTP) => {
@@ -26,7 +27,7 @@ export default function RecoverPassword() {
 
   async function onSubmit(e) {
     e.preventDefault();
-
+    // successful verification navigate to reset route
     try {
       const { successStatus } = await verifyOTP({ username, code: OTP });
       if (successStatus !== 201) {
@@ -38,6 +39,7 @@ export default function RecoverPassword() {
     }
   }
 
+  // resend otp func
   function resendOTP() {
     const sentPromise = generateOTP(username);
     toast.promise(sentPromise, {
@@ -53,7 +55,9 @@ export default function RecoverPassword() {
       <div className="w-full h-full flex ">
         <div className="lg:block hidden" style={{ width: '60%' }}>
           <div className="flex flex-row items-center absolute p-11 cursor-pointer">
-            <img src={git} alt="branch" className="w-7" />
+            <Link to={'https://github.com/SayantanmPaul/profileverfication'}>
+              <img src={git} alt="branch" className="w-7" />
+            </Link>
           </div>
 
           <div className="flex flex-col gap-3 justify-center items-center h-full">
@@ -111,7 +115,9 @@ export default function RecoverPassword() {
 
         <div className="w-[92%] h-[60%] bg-white flex flex-col justify-center items-center absolute lg:hidden">
           <div className="flex flex-row items-center top-5 relative">
-            <img src={git} alt="branch" className="w-5" />
+            <Link to={'https://github.com/SayantanmPaul/profileverfication'}>
+              <img src={git} alt="branch" className="w-5" />
+            </Link>
           </div>
           <div className="flex flex-col gap-3 justify-center items-center h-full">
             <form onSubmit={onSubmit} className="flex flex-col gap-10">

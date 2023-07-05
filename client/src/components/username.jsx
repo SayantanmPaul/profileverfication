@@ -39,7 +39,9 @@ export default function Username() {
       <div className="w-full h-full flex ">
         <div className=" lg:block hidden" style={{ width: '60%' }}>
           <div className='flex flex-row items-center absolute gap-2 p-10 cursor-pointer'>
-            <img src={git} alt="branch" className='w-8' />
+            <Link to={'https://github.com/SayantanmPaul/profileverfication'}>
+              <img src={git} alt="branch" className='w-8' />
+            </Link>
           </div>
 
           <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
@@ -85,10 +87,9 @@ export default function Username() {
             <Toaster position='top-center' reverseOrder={false}></Toaster>
 
             <div className='flex flex-row items-center hover:underline underline-offset-2 duration-300 p-5 absolute top-0'>
-              <img src={git} alt="branch" className='w-[12px]' />
-              <div>
-                <h1 className=' text-xs text-white opacity-60 '>/Project UX..</h1>
-              </div>
+              <Link to={'https://github.com/SayantanmPaul/profileverfication'}>
+                <img src={git} alt="branch" className='w-5  ' />
+              </Link>
             </div>
             <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
               <div className=' flex flex-col gap-9 '>
