@@ -2,8 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { getUsername } from "../utilities/helper";
 
-// eslint-disable-next-line no-undef
-axios.defaults.baseURL= 'http://localhost:8080';
+axios.defaults.baseURL= import.meta.env.VITE_REACT_APP_SERVER_DOMAIN;
 
 // custom hook to get the user data from the getUser
 export default function useFetch(query){

@@ -1,7 +1,7 @@
 import React from 'react'
 import Context from '/unsplash.jpg';
 import git from '../assets/Vector.png';
-import {Toaster, toast} from 'react-hot-toast';
+import {Toaster} from 'react-hot-toast';
 import {useFormik} from 'formik';
 import { passwordValidate} from '../formikhooks/validate';
 import { Link, useNavigate } from 'react-router-dom';
@@ -63,7 +63,7 @@ export default function password() {
           <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
             <div className=' flex flex-col gap-12 '>
               <div className=' flex  flex-col gap-2'>
-                <h1 className=' text-[27px] font-medium text-center' style={{fontFamily: 'Poppins, sans-serif'}}>Welcome back, {apiData?.username} </h1>
+                <h1 className=' text-[27px] font-medium text-center' style={{fontFamily: 'Poppins, sans-serif'}}>Welcome back, {apiData?.firstname || apiData?.username} </h1>
                 <p className=' text-xs font-medium text-center  text-[#96B7C5]' style={{fontFamily: 'Poppins, sans-serif'}}>Welcome back! Please enter your details.</p>
               </div>
               <div className=' flex flex-col items-center'>
@@ -110,7 +110,7 @@ export default function password() {
             <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
               <div className=' flex flex-col gap-9 '>
                 <div className=' flex  flex-col gap-1'>
-                  <h1 className=' text-[20px] font-semibold text-center' style={{fontFamily: 'Poppins, sans-serif'}}>Welcome back, {apiData?.username}</h1>
+                  <h1 className=' text-[20px] font-semibold text-center' style={{fontFamily: 'Poppins, sans-serif'}}>Welcome back, {apiData?.firstname ||apiData?.username}</h1>
                   <p className=' text-[10px] font-medium text-center  text-[#96B7C5]' style={{fontFamily: 'Poppins, sans-serif'}}>Welcome back! Please enter your details.</p>
                 </div>
                 <div className=' flex flex-col items-center'>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import Context from '/unsplash.jpg';
+import Context from '/recognitions.png';
 import git from '../assets/Vector.png';
 import {Toaster, toast} from 'react-hot-toast';
 import { useFormik } from 'formik';
-import { registerValidate, passwordValidate} from '../formikhooks/validate';
+import { registerValidate } from '../formikhooks/validate';
 import { Link, useNavigate} from 'react-router-dom';
 import convertToBase64 from '../formikhooks/img_convert';
 import { registerUser } from '../utilities/helper';

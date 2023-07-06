@@ -69,6 +69,7 @@ export default function Username() {
                 <div >  
                   <button type='submit' onSubmit={formik.handleSubmit} className='bg-[#439BC0] px-[128px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 ' style={{fontFamily: 'Poppins, sans-serif'}} >Let&apos;s get started  </button>
                 </div>
+                <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-center text-xs' >Don&apos;t remember your username? check your mail :{')'} </p>
                 <div className='flex flex-row justify-center gap-1'>
                   <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-xs' >Don&apos;t have an account? </p>
                   <Link to='/register'>
@@ -116,10 +117,11 @@ export default function Username() {
                   <div >
                     <button type='submit' onSubmit={usernameVaildate} className='bg-[#439BC0] px-[100px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Let&apos;s get started </button>
                   </div>
-                  <div className='flex flex-row gap-1'>
-                    <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-[9px]' >Don&apos;t have an account? </p>
+                  <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-center text-[9px]' >Don&apos;t remember your username? check your mail :{')'} </p>
+                  <div className='flex flex-row justify-center gap-1'>
+                    <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-[10px]' >Don&apos;t have an account? </p>
                     <Link to='/register'>
-                      <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-black text-[9px] hover:underline duration-300 cursor-pointer'>Sign up for free</p>
+                      <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-black text-[10px] hover:underline duration-300 cursor-pointer'>Sign up for free</p>
                     </Link>
                   </div>
                 </div>

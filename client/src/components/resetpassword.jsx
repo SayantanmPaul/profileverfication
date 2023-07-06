@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import git from '../assets/Vector.png';
 import {Toaster, toast} from 'react-hot-toast';
 import {useFormik} from 'formik';
