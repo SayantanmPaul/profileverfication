@@ -81,7 +81,7 @@ export default function Username() {
           </form>
 
         </div>
-        <div className="flex-grow bg-cover bg-no-repeat backdrop-blur-sm flex justify-center items-center"  style={{backgroundImage: 'url(../../public/unsplash.jpg)'}}>
+        <div className="flex-grow bg-cover bg-no-repeat backdrop-blur-sm flex justify-center items-center"  style={{backgroundImage: 'url(/unsplash.jpg)'}}>
         {/* mobile and tablet view */}
         
           <div className='w-[92%] h-2/3 bg-white flex flex-col justify-center items-center lg:hidden'>
