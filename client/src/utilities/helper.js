@@ -1,9 +1,12 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode'
+import dotenv from 'dotenv'
+
+dotenv.config({path: '../../config.env'})
 
 
 // eslint-disable-next-line no-undef
-axios.defaults.baseURL= 'http://localhost:8080/'
+axios.defaults.baseURL= process.env.VITE_REACT_APP_SERVER_DOMAIN;
 
 // make API request from backend
 
