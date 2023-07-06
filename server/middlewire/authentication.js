@@ -1,6 +1,5 @@
 
 import JWT from 'jsonwebtoken';
-import ENV from '../config.js';
 import dotenv from 'dotenv';
 
 dotenv.config({path: '../config.env'})
