@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode'
 
 
 // eslint-disable-next-line no-undef
-axios.defaults.baseURL= 'http://userauth.ap-south-1.elasticbeanstalk.com/';
+axios.defaults.baseURL= 'https://light-wasp-swimsuit.cyclic.app/';
 
 // make API request from backend
 
