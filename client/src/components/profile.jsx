@@ -154,7 +154,7 @@ export default function profile() {
               </div>
             </form>
           </div>
-        <div className="flex-grow bg-cover bg-no-repeat backdrop-blur-sm flex justify-center items-center" style={{backgroundImage: 'url(../../public/prof.jpg)'}}>
+        <div className="flex-grow bg-cover bg-no-repeat backdrop-blur-sm flex justify-center items-center" style={{backgroundImage: 'url(/prof.jpg)'}}>
         {/* mobile or tablet view */}
         <div className='w-[92%] h-[85%] bg-white flex flex-col justify-center items-center lg:hidden' >
           <div className='flex flex-row items-center hover:underline underline-offset-2 duration-300 p-5 absolute top-0'>

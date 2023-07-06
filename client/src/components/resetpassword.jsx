@@ -77,7 +77,7 @@ export default function resetpassword() {
           </form>
 
         </div>
-        <div className="flex-grow bg-cover bg-no-repeat backdrop-blur-sm flex justify-center items-center"  style={{backgroundImage: 'url(../../public/unsplash2.jpg)'}}>
+        <div className="flex-grow bg-cover bg-no-repeat backdrop-blur-sm flex justify-center items-center"  style={{backgroundImage: 'url(/unsplash2.jpg)'}}>
         {/* mobile and tablet view */}
         
           <div className='w-[92%] h-[60%] bg-white flex flex-col justify-center absolute items-center lg:hidden'>

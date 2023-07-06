@@ -1,12 +1,9 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode'
-import dotenv from 'dotenv'
-
-dotenv.config({path: '../../config.env'})
 
 
 // eslint-disable-next-line no-undef
-axios.defaults.baseURL= process.env.VITE_REACT_APP_SERVER_DOMAIN;
+axios.defaults.baseURL= 'http://userauth.ap-south-1.elasticbeanstalk.com/';
 
 // make API request from backend
 
