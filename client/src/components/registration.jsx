@@ -116,10 +116,7 @@ export default function registration() {
             <div className='w-[92%] h-4/5 bg-white flex flex-col justify-center items-center lg:hidden'>
 
               <div className='flex flex-row items-center hover:underline underline-offset-2 duration-300 p-5 absolute top-0'>
-                <img src={git} alt="branch" className='w-[12px]' />
-                <div>
-                  <h1 className=' text-xs text-white opacity-60 '>/Project UX..</h1>
-                </div>
+                <img src={git} alt="branch" className='w-5'/>
               </div>
               <form onSubmit={formik.handleSubmit} className='flex justify-center items-center h-full'>
                 <div className=' flex flex-col gap-9 '>
@@ -163,7 +160,7 @@ export default function registration() {
                     <></>
                     )}
                     <div >
-                      <button type='submit' onSubmit={formik.handleSubmit} className='bg-[#439BC0] px-[115px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Register now</button>
+                      <button type='submit' onSubmit={formik.handleSubmit} className='bg-[#439BC0] px-[110px] py-1 text-white font-medium rounded-sm hover:bg-[#3a87a8] duration-300 text-[14px] ' style={{fontFamily: 'Poppins, sans-serif'}}>Register now</button>
                     </div>
                     <div className='flex flex-row gap-1 justify-center'>
                       <p style={{fontFamily: 'Poppins, sans-serif'}} className='text-[#96B7C5] text-[9px]' >Already have an account? </p>
