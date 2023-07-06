@@ -1,6 +1,8 @@
 import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
-import ENV from '../config.js';
+import dotenv from 'dotenv';
+
+dotenv.config({path: '../config.env'})
 
 export default function registerMail(req, res){
 
@@ -10,8 +12,8 @@ export default function registerMail(req, res){
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: ENV.emailid,
-      pass: ENV.password,
+      user: process.env.emailid,
+      pass: process.env.password,
     }
   });
 
@@ -43,7 +45,7 @@ export default function registerMail(req, res){
 
 //   sender and receiver and content
   const message = {
-    from: ENV.emailid,
+    from: process.env.emailid,
     to: userEmail,
     subject: subject || 'signup successful',
     html: mail

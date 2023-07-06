@@ -1,9 +1,10 @@
 import userModel from "../model/user.model.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import ENV from '../config.js';
-import otpGen from 'otp-generator'
-import { redirect } from "react-router-dom";
+import otpGen from 'otp-generator';
+import dotenv from 'dotenv';
+
+dotenv.config({path: '../config.env'})
 
 
 // middleware for veryfy user
@@ -51,11 +52,11 @@ export async function register(req, res){
                 })
             }
         }catch(error){
-            return res.status(500).send({error: "try new email or username"});
+            return res.status(500).send({error: "try new email or username", error});
         }
         
     }catch(error){
-        return res.status(500).send({error});
+        return res.status(500).send(error.message);
     }
 }
 
@@ -82,7 +83,7 @@ export async function login(req, res) {
               },
 
             //   token from config.js
-              ENV.JWT_SECRET,
+              process.env.JWT_SECRET,
               { expiresIn: '24h' }
             );
 

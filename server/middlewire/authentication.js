@@ -1,7 +1,9 @@
 
 import JWT from 'jsonwebtoken';
 import ENV from '../config.js';
+import dotenv from 'dotenv';
 
+dotenv.config({path: '../config.env'})
 
 export default async function Auth(req, res, next){
     try {
@@ -10,7 +12,7 @@ export default async function Auth(req, res, next){
         const token =req.headers.authorization.split(" ")[1];
 
         // retrive the user details for the loggedin user
-        const decodeToken= await JWT.verify(token, ENV.JWT_SECRET);
+        const decodeToken= await JWT.verify(token, process.env.JWT_SECRET);
         
         req.user= decodeToken;
 

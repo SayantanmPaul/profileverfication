@@ -1,14 +1,23 @@
 import mongoose from "mongoose";
+import dotenv from 'dotenv';    
 import { MongoMemoryServer } from "mongodb-memory-server";
 
-async function connect(){
-    const mongodb=await MongoMemoryServer.create();
-    const getURI=mongodb.getUri(); //retrive mogodb connection from memeory server
+dotenv.config({path: './config.env'})
 
-    mongoose.set('strictQuery', true) //handle undefined query
-    const db=await mongoose.connect(getURI);
-    console.log("database is connected ");
-    return db;
+async function connect(){
+
+    const mongod = await MongoMemoryServer.create();
+    const getUri = mongod.getUri();
+
+    mongoose.set('strictQuery', true)
+    // const db = await mongoose.connect(getUri);
+    const db = await mongoose.connect(process.env.ATLAS_URI,{
+        
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    }).then(()=>{
+        console.log("success");
+    });
 }
 
 export default connect;
